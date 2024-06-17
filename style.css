@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
 
 :root {
-  --Open-Sans: "Open Sans";
+  --Nunito-Sans: "Nunito Sans";
 }
 
 * {
@@ -10,14 +10,17 @@
   border: none;
   outline: none;
   box-sizing: border-box;
-  font-family: var(--Open-Sans);
+  font-family: var(--Nunito-Sans);
+}
+
+/* html */
+
+html {
+  min-height: 100%;
+  position: relative;
 }
 
 /* Body */
-
-body {
-  position: relative;
-}
 
 /* Head Section */
 
@@ -37,7 +40,6 @@ body {
   top: 60%;
   left: 50%;
   gap: 1.5rem;
-  width: 20rem;
   display: none;
   position: fixed;
   padding: 2rem 1rem;
@@ -45,11 +47,11 @@ body {
   border-radius: 10px;
   flex-direction: column;
   justify-content: center;
+  width: max(38dvw, 18rem);
   transform: translate(-50%, -50%);
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.297);
   backdrop-filter: blur(10px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(120%);
-  /* background: rgba(255, 255, 255, 0.6); */
 }
 
 .show #blurBg,
@@ -58,6 +60,7 @@ body {
 }
 
 #popUp input {
+  width: 92%;
   font-size: 1.3rem;
   border-radius: 8px;
   padding: 0.5rem 1rem;
@@ -159,6 +162,7 @@ main .addBookLabel {
 
 .book button {
   width: 100%;
+  font-weight: 700;
   font-size: 1.2rem;
   margin-top: 1.5rem;
   border-radius: 14px;
@@ -170,7 +174,25 @@ main .addBookLabel {
 .book button:hover {
   color: #fff;
   cursor: pointer;
-  background-color: #7e7e7e;
+  background-color: #575757;
 }
 
 /* Footer Section */
+
+footer {
+  left: 0;
+  gap: 10px;
+  bottom: 0%;
+  width: 100%;
+  z-index: -1;
+  display: flex;
+  font-weight: 500;
+  font-size: 1.2rem;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+}
+
+.githublogo {
+  height: 24px;
+}
