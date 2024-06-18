@@ -4,45 +4,50 @@ const addNewBookButton = document.querySelector(".addBookButton img");
 
 const generateID = () => Math.floor(Math.random() * 900000) + 100000;
 
-const localStorageBooks = localStorage.getItem("Book");
+let Books = JSON.parse(localStorage.getItem("Book")) || [];
 
-let Books = localStorageBooks !== null ? JSON.parse(localStorageBooks) : [];
+function Book(title, author, pages, read) {
+  this.BookID = generateID();
+  this.title = title || "unknown";
+  this.author = author || "unknown";
+  this.pages = pages || "unknown";
+  this.read = read ? "Yes" : "No";
+}
 
 // add book to DOM/body
-function addBookDOM(bookDetails) {
+function addBookDOM(book) {
   document.body.classList.remove("show");
   const newElem = document.createElement("div");
   newElem.classList.add("book");
   newElem.innerHTML = `
       <div class="title">
         <span class="titleLabel">Book title : </span>
-        <span class="title">${bookDetails.title}</span>
+        <span class="title">${book.title}</span>
       </div>
       <div class="author">
         <span class="authorLabel">Book Author : </span>
-        <span class="authorValue">${bookDetails.authorValue}</span>
+        <span class="authorValue">${book.author}</span>
       </div>
       <div class="pages">
         <span class="pagesLabel">Book Pages : </span>
-        <span class="pagesValue">${bookDetails.pagesValue}</span>
+        <span class="pagesValue">${book.pages}</span>
       </div>
       <div class="read">
         <span class="readLabel">Book Readed : </span>
-        <span class="readOrNot">${bookDetails.readValue}</span>
+        <span class="readOrNot">${book.read}</span>
       </div>
       <button class="deleteBook">Delete</button>
       `;
   bookContainer.appendChild(newElem);
-  updateLocalStorage();
-  newElem.addEventListener("click", (e) => {
-    if (e.target.classList.contains("deleteBook")) {
-      getBookId(bookDetails.bookID);
-    }
+  newElem.querySelector(".deleteBook").addEventListener("click", () => {
+    console.log(book.BookID);
+    deleteBookById(book.BookID);
   });
+  updateLocalStorage();
 }
 
-function getBookId(id) {
-  Books = Books.filter((t) => t.bookID !== id);
+function deleteBookById(id) {
+  Books = Books.filter((book) => book.BookID !== id);
   updateLocalStorage();
   refreshDOM();
 }
@@ -51,30 +56,20 @@ document.querySelector("#blurBg").onclick = () =>
   document.body.classList.remove("show");
 
 function submitBookDetails() {
-  const bookDetails = {
-    readValue: "No",
-    bookID: generateID(),
-    title: "unknown",
-    pagesValue: "unknown",
-    authorValue: "unknown",
-  };
-  if (document.querySelector("#titleInput").value) {
-    bookDetails.title = document.querySelector("#titleInput").value;
-  }
-  if (document.querySelector("#AuthorInput").value) {
-    bookDetails.authorValue = document.querySelector("#AuthorInput").value;
-  }
-  if (document.querySelector("#PagesInput").value) {
-    bookDetails.pagesValue = document.querySelector("#PagesInput").value;
-  }
-  const checkBox = document.querySelector(".checkbox");
-  bookDetails.readValue = checkBox.checked ? "Yes" : "No";
-  checkBox.checked = false;
+  const title = document.querySelector("#titleInput").value;
+  const author = document.querySelector("#AuthorInput").value;
+  const pages = document.querySelector("#PagesInput").value;
+  const checkBox = document.querySelector(".checkbox").checked;
+
+  const newBook = new Book(title, author, pages, checkBox);
+
+  Books.push(newBook);
+  addBookDOM(newBook);
+
   document.querySelector("#titleInput").value = "";
   document.querySelector("#AuthorInput").value = "";
   document.querySelector("#PagesInput").value = "";
-  Books.push(bookDetails);
-  addBookDOM(bookDetails);
+  document.querySelector(".checkbox").checked = false;
 }
 
 function updateLocalStorage() {
