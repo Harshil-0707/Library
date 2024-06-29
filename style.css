@@ -180,23 +180,3 @@ main .addBookLabel {
   cursor: pointer;
   background-color: #575757;
 }
-
-/* Footer Section */
-
-footer {
-  left: 0;
-  gap: 10px;
-  bottom: 0%;
-  width: 100%;
-  z-index: -1;
-  display: flex;
-  font-weight: 500;
-  font-size: 1.2rem;
-  position: absolute;
-  align-items: center;
-  justify-content: center;
-}
-
-.githublogo {
-  height: 24px;
-}
