@@ -87,13 +87,3 @@ submitBtn.addEventListener("click", submitBookDetails);
 addNewBookButton.addEventListener("click", () =>
   document.body.classList.add("show")
 );
-
-function currentMonth() {
-  const year = new Date().getFullYear();
-  const footer = document.querySelector("footer");
-  footer.innerHTML = `
-    Copyright &copy; ${year} Harshil-0707 <a href="https://github.com/Harshil-0707" target="_blank"><img class="githublogo" src="./github.svg" alt="github" /></a>
-  `;
-}
-
-currentMonth();
